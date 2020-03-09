@@ -1,22 +1,22 @@
 # Hop-Filed Neural Network
 
 #### graphical\_test\_network.py
-	Accepts a training data file and a testing pattern.
-	Training file contains the pixels of all the inputs line by line.
-	Testing file contains one line containing the pixel values.
+	- Accepts a training data file and a testing pattern.
+	- Training file contains the pixels of all the inputs line by line.
+	- Testing file contains one line containing the pixel values.
 
 #### collect\_data.py
-	Acceps a file name to write data into.
-	You'll be presented with a 10x10 grid where you can draw patterns.
-	Press 'q' after you are done with drawing.
-	Now the pixel values will be written into the file in row major order.
+	- Acceps a file name to write data into.
+	- You'll be presented with a 10x10 grid where you can draw patterns.
+	- Press 'q' after you are done with drawing.
+	- Now the pixel values will be written into the file in row major order.
 
 #### represent\_network.py
-	Accepts a file name which contains the pixel values and then plots on a 10x10 grid.
-	Just to see which pattern are we exactly using.
+	- Accepts a file name which contains the pixel values and then plots on a 10x10 grid.
+	- Just to see which pattern are we exactly using.
 
 #### test\_pattern.py
-	Works similar to graphical\_test\_network.py but without GUI.
+	- Works similar to graphical\_test\_network.py but without GUI.
 
 > How to run?
 ### Collect Training Data
