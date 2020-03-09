@@ -18,7 +18,7 @@
 #### test\_pattern.py
 	- Works similar to graphical_test_network.py but without GUI.
 
-* ## How to run?
+## How to run?
 ### Collect Training Data
 - Run collect\_data.py with a filename as argument.
 	> Eg: ./collect\_data.py letter_A.txt
