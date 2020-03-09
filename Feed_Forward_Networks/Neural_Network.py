@@ -78,8 +78,28 @@ class NeuralNetwork() :
 
         return output
 
-    def backpropagation(self, out) :
-        pass
+    
+    def backpropagate(self, out, target) :
+        weight_changes = list()
+        for i in range(self.O) :
+            neuron = self.output_layer[i]
+            dw = [0]*self.O
+            for j in range(neuron.N) :
+                if self.H == 0 :
+                    In = self.input_layer[j]
+                else :
+                    In = self.HiddenLayers[-1][j]
+                for k in range(self.O) :
+                    dw[k] += (target[k] - out[k]) * out[k] * (1 - out[k]) * In
+            weight_changes.append(dw)
+        return weight_changes
 
     def Train(self, data, size) :
-        pass
+        for i in range(size) :
+            sample = data[i]
+            inp = sample[0]
+            target = sample[1]
+
+            out = self.feedForward(inp)
+            print(sample, out, target)
+            weight_changes = self.backpropagate(out, target)
