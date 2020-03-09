@@ -16,7 +16,7 @@
 	- Just to see which pattern are we exactly using.
 
 #### test\_pattern.py
-	- Works similar to graphical\_test\_network.py but without GUI.
+	- Works similar to graphical_test_network.py but without GUI.
 
 > How to run?
 ### Collect Training Data
