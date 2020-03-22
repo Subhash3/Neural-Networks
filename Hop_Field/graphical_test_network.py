@@ -92,6 +92,7 @@ def draw():
 
     create_grid(testing_vector)
     print_grid()
+    print("Iteration: ", steps)
 
     for row in grid:
         for col in row:
@@ -108,7 +109,7 @@ def draw():
         i = 0
         try :
             if all(prev_inp == testing_vector) : # All elements of two arrays are same
-                print("Took ", steps, "Steps to converge")
+                print("Took ", steps+1, "Steps to converge")
                 no_loop()
         except :
             pass
