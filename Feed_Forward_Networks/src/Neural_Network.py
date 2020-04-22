@@ -246,7 +246,7 @@ class NeuralNetwork() :
 
 
 
-    def Train(self, data, size, MAX_EPOCHS = 10000, graph=False) :
+    def Train(self, data, size, MAX_EPOCHS = 10000, graph=False, log_outputs=True) :
         """
         Trains the neural network using the provided data
 
@@ -280,8 +280,13 @@ class NeuralNetwork() :
             It is an optional parameter.
             How many iterations should it train for?
         
-        graph : bool
+        [graph] : bool
+            It is an optional parameter.
             If it is true, an epoch vs error will be displayed after the network is trained.
+
+        [log_outputs] : bool
+          It is an optional parameter.
+          If it is true, output at each epoch will be printed. Not recommended for bigger datasets.
 
         Returns
         -------
@@ -306,7 +311,8 @@ class NeuralNetwork() :
                 # Update weights
                 self.update_weights()
 
-                print(sample, hidden_out, out, out_errors)
+                if log_outputs :
+                    print(sample, hidden_out, out, out_errors)
                 # self.print_weights()
                 self.MSE += total_error/self.O
             # self.MSE /= size
