@@ -9,7 +9,7 @@ class NeuralNetwork() :
     output_layer = list()
 
     def __init__(self, I, H, O, list_of_hidden_nodes=None) :
-        self.LearningRate = 0.7
+        self.LearningRate = 0.8
 
         if list_of_hidden_nodes != None and H != len(list_of_hidden_nodes) :
             # print("Invalid Arguments.! NeuralNetwork Object must have (No. of inputs), (No. of Hidden Layers), (No. of outputs), (List containing the No. of nodes in each of the hidden layer)")
@@ -21,7 +21,8 @@ class NeuralNetwork() :
         self.O = O # No. of Outputs
         self.HiddenLayers = list()
         self.list_of_hidden_nodes = list_of_hidden_nodes
-        self.MSE = 0 # Mean Squared Error
+        self.MSE = 1 # Mean Squared Error
+        self.confidence = 0
 
         for _ in range(I) :
             self.input_layer.append(0) # Assume that all the inputs are zero
@@ -74,22 +75,26 @@ class NeuralNetwork() :
 
     def feedForward(self, inp) :
         # print("Feed Forward")
+        hidden_outputs = list()
         for h in range(self.H) :
             output = list()
             hiddden_layer = self.HiddenLayers[h]
             for neuron in hiddden_layer :
                 prediction = neuron.guess(inp)
+                prediction = round(prediction, 7)
                 neuron.predicted_value = prediction
                 output.append(prediction)
+            hidden_outputs.append(output)
             inp = output
 
         output = list()
         for neuron in self.output_layer :
             prediction = neuron.guess(inp)
+            prediction = round(prediction, 7)
             neuron.predicted_value = prediction
             output.append(prediction)
 
-        return output
+        return output, hidden_outputs
 
     def backpropagate(self, target) :
         # print("Back Propagation")
@@ -101,7 +106,7 @@ class NeuralNetwork() :
             # Error in output layer: (target - output) * activation_derivative(output)
             neuron = self.output_layer[j]
             error = target[j] - neuron.predicted_value
-            total_error += error # calculate total error
+            total_error += (error * error) # calculate squared error
 
             neuron.delta = error * neuron.activator(neuron.predicted_value, derivative=True)
             # neuron.delta = error * out[j] * (1 - out[j]) # for sigmoid activator
@@ -174,6 +179,7 @@ class NeuralNetwork() :
 
 
     def Train(self, data, size, MAX_EPOCHS = 10000, graph=False) :
+        self.epochs_taken = MAX_EPOCHS
         all_erros = list()
         for epoch in range(MAX_EPOCHS) :
             # print("Epoch:", epoch+1)
@@ -186,15 +192,16 @@ class NeuralNetwork() :
                 self.input_layer = inp
 
                 # Feed forward the input
-                out = self.feedForward(inp)
+                out, hidden_out = self.feedForward(inp)
                 # Backpropagate the error
                 out_errors, total_error = self.backpropagate(target)
                 # Update weights
                 self.update_weights()
 
-                print(sample, out, target, out_errors)
+                print(sample, hidden_out, out, out_errors)
                 # self.print_weights()
-                self.MSE += (total_error * total_error)
+                self.MSE += total_error/self.O
+            # self.MSE /= size
             all_erros.append(self.MSE)
                 
             print()
@@ -202,7 +209,7 @@ class NeuralNetwork() :
             self.epoch_vs_error(all_erros, MAX_EPOCHS)
             
     def predict(self, inputs) :
-        output = self.feedForward(inputs)
+        output, _hidden_outputs = self.feedForward(inputs)
         return output
 
     def epoch_vs_error(self, all_erros, epochs) :
@@ -213,6 +220,16 @@ class NeuralNetwork() :
 
         plt.plot(all_epochs, all_erros)
         plt.show()
+
+    def evaluate(self) :
+        print("\n\t=-=-=-=-= Model Evaluation =-=-=-=-=-")
+        print("\tModel is trained for", self.epochs_taken, "Epochs")
+        print("\tMean Squared Error(MSE): ", self.MSE)
+        self.confidence = (1 - self.MSE)*100
+        print("\tModel Confidence: ", self.confidence)
+        if self.confidence < 75 :
+            print("\tModel doesn't seem to fit the data. Try increasing epochs.")
+        print("\t-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
 
     def export_network(self, filename) :
         try :
