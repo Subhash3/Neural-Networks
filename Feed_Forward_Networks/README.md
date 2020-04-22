@@ -45,9 +45,9 @@ A typical XOR function's dataset looks something like :
 >>> size = 4 # Length of the data
 ```
 ### Training The network
-The library provides a *Train* function which accepts the dataset, dataset size, and two optional parameters MAX\_EPOCHS and Graph.
+The library provides a *Train* function which accepts the dataset, dataset size, and three optional parameters MAX\_EPOCHS, graph, and log_outputs.
 ```python3
-def Train(dataset, size, MAX_EPOCHS=10000, graph=False) :
+def Train(dataset, size, MAX_EPOCHS=10000, graph=False, log_outputs=True) :
 	....
 	....
 ```
@@ -55,6 +55,8 @@ For Eg: If you want to train your network for 5000 epochs and display epoch vs e
 ```python3
 >>> network.Train(XOR_data, size, MAX_EPOCHS=5000, graph=True)
 ```
+Notice that I didn't change the value of log_outputs as I want the output to printed for each epoch.
+
 
 ### Debugging
 If you want to look at the network's weights at any point of time, the library provides a print\_weights function.
