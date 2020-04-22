@@ -1,3 +1,6 @@
+## Installation  
+> $ [sudo] pip install feedforwardnet-shine7  
+
 ## Usage
 
 ```python3
