@@ -10,6 +10,19 @@ from abc import abstractmethod
 
 class Neuron() :
     def __init__(self, N) :
+        """
+        Neuron class constructor: Creates a Neuron object.
+
+        Parameters
+        ----------
+        N : Integer
+            Number of inputs to the Neuron
+
+        Returns
+        -------
+        Neuron
+            Returns Neuron Object
+        """
         Weights = list()
         self.N = N # initialize the number of inputs
         # self.T = random.random()*random.randint(-2, 2) + random.random()*random.randint(-2, 2)
@@ -29,6 +42,19 @@ class Neuron() :
         self.predicted_value = 0
 
     def guess(self, inp) :
+        """
+        Makes a guess based on the given input
+
+        Parameters
+        ----------
+        inp : list
+            Input vector
+
+        Returns
+        -------
+        prediction : float
+            Output predicted by the neuron
+        """
         prediction = 0
         inp.insert(0, 1) # Corresponds to the weight -T
         # print("Input:", inp, "Weights:", self.Weights)
