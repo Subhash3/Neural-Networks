@@ -1,5 +1,7 @@
 ## Installation  
-> $ [sudo] pip install feedforwardnet-shine7  
+```bash
+$ [sudo] pip install feedforwardnet-shine7
+``` 
 
 ## Usage
 
