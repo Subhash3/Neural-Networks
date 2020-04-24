@@ -296,7 +296,7 @@ class NeuralNetwork() :
         all_erros = list()
         for epoch in range(MAX_EPOCHS) :
             # print("Epoch:", epoch+1)
-            print("Epoch: ", epoch+1, "Error: ", self.MSE)
+            print("Epoch: ", epoch+1, "==>  Error: ", self.MSE)
             self.MSE = 0 
             for i in range(size) :
                 sample = data[i]
@@ -314,11 +314,12 @@ class NeuralNetwork() :
                 if log_outputs :
                     print(sample, hidden_out, out, out_errors)
                 # self.print_weights()
-                self.MSE += total_error/self.O
-            # self.MSE /= size
+                self.MSE += total_error
+            self.MSE /= size
             all_erros.append(self.MSE)
-                
-            print()
+            
+            if log_outputs :
+                print()
         if graph :
             self.epoch_vs_error(all_erros, MAX_EPOCHS)
             
